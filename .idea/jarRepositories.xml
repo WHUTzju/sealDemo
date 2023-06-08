@@ -7,6 +7,11 @@
       <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="aliyunmaven" />
+      <option name="name" value="阿里云公共仓库" />
+      <option name="url" value="https://maven.aliyun.com/repository/public/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="nexus" />
       <option name="name" value="local private nexus" />
       <option name="url" value="http://nexus.hyperchain.cn/repository/hyperchain/" />

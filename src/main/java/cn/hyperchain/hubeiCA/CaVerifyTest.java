@@ -3,6 +3,7 @@ package cn.hyperchain.hubeiCA;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -14,10 +15,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
@@ -52,6 +50,7 @@ public class CaVerifyTest {
         // 2、封装请求体
         MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
         FileSystemResource resource = new FileSystemResource(new File(signedFilePath));
+//        InputStreamResource resource = new InputStreamResource(new FileInputStream(signedFilePath));
         params.add("pdfFile", resource);
         params.add("appKey", appKey);
         params.add("appSecret", appSecret);

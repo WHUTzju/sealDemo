@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -22,7 +23,10 @@ import java.util.Map;
 public class RestTemplateMain {
 
     public static void main(String[] args) {
-        RestTemplate restTemplate = new RestTemplate();
+        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+        requestFactory.setConnectTimeout(5000);
+        requestFactory.setReadTimeout(3000);
+        RestTemplate restTemplate = new RestTemplate(requestFactory);
         List<HttpMessageConverter<?>> httpMessageConverters = restTemplate.getMessageConverters();
         httpMessageConverters.forEach(httpMessageConverter -> {
             if (httpMessageConverter instanceof StringHttpMessageConverter) {

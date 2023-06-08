@@ -21,29 +21,64 @@ import java.util.TimeZone;
  **/
 public class SealPdfMain {
 
-    //    private final static String keyStorePath = "/Users/zhangrui/IdeaProjects/sealDemo/seal/keystore/keystore.p12";
-    private final static String keyStorePath = "/Users/zhangrui/IdeaProjects/sealDemo/seal/filoink.pfx";
+    /**
+     * 证书文件
+     */
+//    private final static String keyStorePath = "/Users/zhangrui/IdeaProjects/sealDemo/seal/keystore/keystore.p12";
+    private final static String keyStorePath = "/Users/zhangrui/IdeaProjects/sealDemo/seal/zjip.pfx";
+    //    private final static String keyStorePath = "/Users/zhangrui/IdeaProjects/sealDemo/seal/filoink.pfx";
 //    private final static String keyStorePath = "/Users/zhangrui/IdeaProjects/sealDemo/seal/常田加密证书.pfx";
     private final static String keyPassword = "123456";
 
 
-        private final static String pdfFilePath = "/Users/zhangrui/IdeaProjects/sealDemo/seal/demo.pdf";
+    /**
+     * 待签署的文件
+     */
+    private final static String pdfFilePath = "/Users/zhangrui/IdeaProjects/sealDemo/seal/zjreg_cert.pdf";
 //    private final static String pdfFilePath = "/Users/zhangrui/IdeaProjects/sealDemo/seal/demo_quzheng.pdf";
 
 
-    private final static String sealWatermarImg = "/Users/zhangrui/IdeaProjects/sealDemo/seal/sign.png";
-    private final static String signReason = "电子数据存证证书";
-    private final static String location = "https://filoink.cn";
+    /**
+     * 签署参数
+     */
+    private final static String sealWatermarImg = "/Users/zhangrui/IdeaProjects/sealDemo/seal/zjSign.png";
+    private final static String signReason = "浙江省数据知识产权登记证书";
+    private final static String location = "https://zjip.org.cn/user/login";
     private final static String fieldName = "inkchain";
 
     private final static Float width = 116f;        // 图章的宽度 中信128 黄河120
     private final static Float height = 116f;    // 图章的高度 中信128 黄河120
-        private final static String SEAL_SIGN_POSITION_KEYWOR = "签署人";// 查找签章位置的关键字
-//    private final static String SEAL_SIGN_POSITION_KEYWOR = "湖北省武汉市尚信公证处";// 查找签章位置的关键字
+    private final static String SEAL_SIGN_POSITION_KEYWOR = "保管机构";// 查找签章位置的关键字
+    //    private final static String SEAL_SIGN_POSITION_KEYWOR = "湖北省武汉市尚信公证处";// 查找签章位置的关键字
     private final static Float offsetX = 85f;    // 图章图片右下角坐标点向右的偏移量，值越大越往右
     private final static Float offsetY = 40f;     // 图章图片右下角坐标点向上的偏移量，值越大越往下
 
     private final static String ownerpwd = "";// 所有者密码
+
+
+    public static void main(String[] args) throws Exception {
+
+        /**
+         * 签章要素
+         */
+        SignatureEntity signatureEntity = getSignatureEntity();
+        String pdfFileTargetPath = pdfFilePath.substring(0,
+                pdfFilePath.lastIndexOf(".pdf")) + System.currentTimeMillis() + "-飞洛印sign-2.pdf";
+
+//        signatureEntity.setRectllx(397f);
+//        signatureEntity.setRectury(222f);
+
+        /**
+         * 签名证书
+         */
+        CertEntity certEntity = SignPDFUtil.getCertInfo(keyStorePath, keyPassword);
+        signatureEntity.setPk(certEntity.getPrivateKey());
+        signatureEntity.setChain(certEntity.getCertificateChain());
+        SignPDFUtil.signNpoSeal(pdfFilePath,
+                pdfFileTargetPath,
+                signatureEntity);
+    }
+
 
     private static SignatureEntity getSignatureEntity() {
         SignatureEntity signatureEntity = new SignatureEntity();
@@ -77,28 +112,6 @@ public class SealPdfMain {
 
 
         return signatureEntity;
-    }
-
-    public static void main(String[] args) throws Exception {
-
-        /**
-         * 签章要素
-         */
-        SignatureEntity signatureEntity = getSignatureEntity();
-        String pdfFileTargetPath = pdfFilePath.substring(0, pdfFilePath.lastIndexOf(".pdf")) + System.currentTimeMillis() + "-飞洛印sign.pdf";
-
-//        signatureEntity.setRectllx(397f);
-//        signatureEntity.setRectury(222f);
-
-        /**
-         * 签名证书
-         */
-        CertEntity certEntity = SignPDFUtil.getCertInfo(keyStorePath, keyPassword);
-        signatureEntity.setPk(certEntity.getPrivateKey());
-        signatureEntity.setChain(certEntity.getCertificateChain());
-        SignPDFUtil.signNpoSeal(pdfFilePath,
-                pdfFileTargetPath,
-                signatureEntity);
     }
 
 }

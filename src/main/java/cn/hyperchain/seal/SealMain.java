@@ -34,12 +34,13 @@ public class SealMain {
                 issuerStr,
                 subjectStr,
                 certificateCRL);
-        FileOutputStream outPutStream = new FileOutputStream(kesP12Path); // ca.jks
-        outPutStream.write(result.get("keyStoreData"));
-        outPutStream.close();
-        FileOutputStream fos = new FileOutputStream(keyCerPath);
-        fos.write(result.get("certificateData"));
-        fos.flush();
-        fos.close();
+        FileOutputStream fos1 = new FileOutputStream(kesP12Path); // ca.jks
+        fos1.write(result.get("keyStoreData"));
+        fos1.flush();
+        fos1.close();
+        FileOutputStream fos2 = new FileOutputStream(keyCerPath);
+        fos2.write(result.get("certificateData"));
+        fos2.flush();
+        fos2.close();
     }
 }

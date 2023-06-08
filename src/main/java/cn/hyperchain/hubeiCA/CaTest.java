@@ -33,15 +33,21 @@ import java.util.Objects;
 public class CaTest {
 
 
-    private static String baseUrl = "http://58.49.112.182:8138";
-    private static String appKey = "test002";
-    private static String appSecret = "F0D959E6C3A84EE08022709E7EA0A947";
-    private static String rule = "5";
-    private static String sealID_01 = "9636AEAEE01243E7A0CF6A7B7CD21F7F";
-    private static String sealID_02 = "9F876673431E4D4A8004D99B82640454";
+//    private static String baseUrl = "http://58.49.112.182:8138";
+//    private static String appKey = "test002";
+//    private static String appSecret = "F0D959E6C3A84EE08022709E7EA0A947";
+//    private static String rule = "5";
+//    private static String rule_67 = "67";//关键字"保管机构："
+//    private static String sealID_01 = "9636AEAEE01243E7A0CF6A7B7CD21F7F";
 
-    private static String toFilePath = "/Users/zhangrui/Downloads/demo.pdf";
-    private static String outFilePath = "/Users/zhangrui/Downloads/demo-signed.pdf";
+    private static String baseUrl = "http://61.183.191.91:8380";
+    private static String appKey = "shangxin2023";
+    private static String appSecret = "88989C69B9F348F6A71146C50FAF38C0";
+    private static String rule_67 = "74";//关键字"保管机构："
+    private static String sealID_01 = "D625A6A6147442F6A16DFB65EA252B6E";
+
+    private static String toFilePath = "/Users/zhangrui/IdeaProjects/sealDemo/seal/to_sign.pdf";
+    private static String outFilePath = "/Users/zhangrui/IdeaProjects/sealDemo/seal/demo-signed.pdf";
 
     public static void main(String[] args) throws IOException {
 
@@ -59,7 +65,7 @@ public class CaTest {
         params.add("pdfFile", resource);
         params.add("appKey", appKey);
         params.add("appSecret", appSecret);
-        params.add("templateIds", rule);
+        params.add("templateIds", rule_67);
         params.add("sealId", sealID_01);
 
         HttpHeaders headers = new HttpHeaders();

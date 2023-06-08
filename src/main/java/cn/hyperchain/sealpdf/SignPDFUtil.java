@@ -40,7 +40,8 @@ public class SignPDFUtil {
     /**
      * 写入章
      */
-    public static void signNpoSeal(String pdfFilePath, String signFileTargetPath, SignatureEntity signatureEntity) {
+    public static void signNpoSeal(String pdfFilePath, String signFileTargetPath,
+                                   SignatureEntity signatureEntity) {
         InputStream inputStream = null;
         FileOutputStream outputStream = null;
         ByteArrayOutputStream tempArrayOutputStream = new ByteArrayOutputStream();

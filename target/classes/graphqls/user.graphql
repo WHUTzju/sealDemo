@@ -1,0 +1,41 @@
+scalar Long
+schema {#定义查询
+    query:UserQuery
+    mutation: userMutations
+}
+
+"用户变更"
+type userMutations{
+    "添加用户"
+    addUser(addUser:UserSaveDTO):ResultModel
+}
+
+"新增用户请求对象"
+input UserSaveDTO{#定义新增对象
+    "用户名称"
+    userName:String!
+    "用户年龄"
+    age:Int!
+}
+
+type ResultModel{#定义返回对象
+    code:Int
+    msg:String
+    ecxp:String
+}
+
+type UserQuery{#定义查询类型
+    getUser(userId:Long):UserVO #指定对象以及参数类型
+}
+
+type UserVO{ #定义对象
+    userId:Long! #!表示属性是非空项
+    userName:String
+    age:Int
+    dept:DeptVO
+}
+
+type DeptVO{
+    deptId:Long
+    deptName:String
+}
